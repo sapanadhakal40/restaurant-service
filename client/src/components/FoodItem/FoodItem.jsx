@@ -1,8 +1,14 @@
+ 
 /* eslint-disable react/prop-types */
 import { assets } from "../../assets/assets";
+import { useContext } from "react";
+import { StoreContext } from "../../context/StoreContext";
 
  
-const FoodItem = ({name,price,image,description}) => {
+const FoodItem = ({id,name,price,image,description,handleAddToCart, setIsCartOpen}) => {
+  const { addToCart } = useContext(StoreContext);
+
+
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden transform transition-transform hover:scale-105 duration-300 ease-in-out">
           <div className="h-48">
@@ -21,7 +27,14 @@ const FoodItem = ({name,price,image,description}) => {
           
             ${price.toFixed(2)}
           </p>
-          <button className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors">
+          <button className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors"
+            onClick={() => {
+              
+              addToCart(id)
+              handleAddToCart(id,name,price,image,description);
+              setIsCartOpen(true)
+            }}
+            >
             Add to Cart
           </button>
         </div>
