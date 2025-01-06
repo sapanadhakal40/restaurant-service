@@ -1,4 +1,6 @@
-import header_food from '../../assets/header_food.jpeg'
+ import header_food from '../../assets/header_img.webp'
+// import header_food from '../../assets/header_img.png'
+
 
 const Header = () => {
   return (
