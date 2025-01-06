@@ -5,18 +5,25 @@
 import Navbar from './components/Navbar/Navbar'
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
 import Home from './pages/Home/home'
-import Cart from './pages/Cart/Cart'
+import Cart from './pages/Cart/cart'
+import CartSidebar from './pages/Cart/CartSidebar'
 import PlaceOrder from './pages/PlaceOrder/PlaceOrder'
 import Footer from './components/Footer/footer'
 import { useState } from 'react'
 import LoginPopup from './components/LoginPopup/LoginPopup'
 import RegisterPopup from './components/RegisterPopup/RegisterPopup'
 
+
+
 const App = () => {
 
   const [showLogin, setShowLogin] = useState(false);
  const [showRegister, setShowRegister] = useState(false);
+ const [isCartOpen, setIsCartOpen] = useState(false);
 
+ const handleAddToCart = () => {
+  setIsCartOpen(true);
+};
 
   return (
     <>
@@ -24,14 +31,18 @@ const App = () => {
         {showRegister && <RegisterPopup setShowRegister={setShowRegister} setShowLogin={setShowLogin} />}
 
 
-
        {/* {showLogin?<LoginPopup/> : <></>} */}
 
       <Router>
     <div className="w-full h-full">
-    <Navbar setShowLogin={setShowLogin} />
+    <Navbar setShowLogin={setShowLogin} setIsCartOpen={setIsCartOpen}   />
+    <CartSidebar 
+        isOpen={isCartOpen} 
+        onClose={() => setIsCartOpen(false)} 
+      />
+      
       <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<Home handleAddToCart={handleAddToCart}/>} />
       <Route path="/cart" element={<Cart />} />
       <Route path="/place-order" element={<PlaceOrder />} />
     </Routes>
