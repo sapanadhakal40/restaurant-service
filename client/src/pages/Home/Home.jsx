@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import ExploreMenu from "../../components/ExploreMenu/ExploreMenu"
 import FoodDisplay from "../../components/FoodDisplay/FoodDisplay";
 import Header from "../../components/Header/Header"
@@ -8,7 +9,7 @@ import { FaUtensils, FaSmile, FaHandshake, FaLeaf } from 'react-icons/fa';
 
 
 
-const Home = () => {
+const Home = ( {handleAddToCart}) => {
 
   const [category, setCategory] = useState("all");
   return (
@@ -22,7 +23,7 @@ const Home = () => {
 
       <section id="menu" className="pt-10">
         <ExploreMenu category={category} setCategory={setCategory}/>
-        <FoodDisplay category={category}/>
+        <FoodDisplay category={category} handleAddToCart={handleAddToCart}/>
       </section>
 
       {/* About Section */}
