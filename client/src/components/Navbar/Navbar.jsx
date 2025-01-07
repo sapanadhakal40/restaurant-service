@@ -2,23 +2,36 @@
 import { useState } from 'react';
 import { assets } from "../../assets/assets.js";
 import { Search, ShoppingCart, Menu, X } from 'lucide-react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Navbar = ({ setShowLogin, setIsCartOpen }) => {
+    const navigate = useNavigate();
+    const location = useLocation();
     const [menu, setMenu] = useState("home");
     const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-    const scrollToSection = (sectionId) => {
-        const element = document.getElementById(sectionId);
-        if (element) {
-            setMobileMenuOpen(false);
-            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-    };
-
+    // const scrollToSection = (sectionId) => {
+    //     const element = document.getElementById(sectionId);
+    //     if (element) {
+    //         setMobileMenuOpen(false);
+    //         element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    //     }
+    // };
     const handleNavClick = (item) => {
         setMenu(item);
-        scrollToSection(item);
-    };
+        setMobileMenuOpen(false);
+
+    if (location.pathname !== '/') {
+        navigate('/', { state: { scrollTo: item } });
+    } else {
+        const element = document.getElementById(item);
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
+};
+   
+    
 
     // Cart icon click handler
     const handleCartClick = () => {
