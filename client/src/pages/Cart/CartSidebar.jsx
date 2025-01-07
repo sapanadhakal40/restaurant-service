@@ -1,10 +1,13 @@
 /* eslint-disable react/prop-types */
 import { useContext } from "react";
 import { StoreContext } from "../../context/StoreContext";
-import { X } from "lucide-react";
+import { X, Truck } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const CartSidebar = ({ isOpen, onClose }) => {
-  const { cartItems, food_list, removeFromCart, deleteFromCart } = useContext(StoreContext);
+  const { cartItems, food_list, removeFromCart, deleteFromCart,  deliveryFee = 5.0 } = useContext(StoreContext);
+
+  const navigate = useNavigate();
 
   // Get the food items added to the cart
   const cartDetails = Object.keys(cartItems).map((id) => {
@@ -12,21 +15,22 @@ const CartSidebar = ({ isOpen, onClose }) => {
     return { ...item, quantity: cartItems[id] };
   });
 
-  // Calculate total
-  const total = cartDetails.reduce(
+  const subtotal = cartDetails.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
   );
+  
+  const total = subtotal + deliveryFee;
+
 
   return (
     <>
       {/* Overlay */}
-      {isOpen && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-[999]"
-          onClick={onClose}
-        />
-      )}
+      <div
+        className={`fixed inset-0 bg-black bg-opacity-50 z-[999] ${!isOpen && "hidden"}`}
+        onClick={onClose}
+      />
+
 
       {/* Sidebar */}
       <div
@@ -103,14 +107,28 @@ const CartSidebar = ({ isOpen, onClose }) => {
 
           {/* Footer with total and checkout */}
           {cartDetails.length > 0 && (
-            <div className="border-t p-4 bg-gray-50">
-              <div className="flex justify-between items-center mb-4">
+            <div className="border-t p-4 bg-gray-50 space-y-3">
+              <div className="flex justify-between items-center">
+                <span className="text-gray-600">Subtotal:</span>
+                <span className="text-lg font-semibold">${subtotal.toFixed(2)}</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-gray-600 flex items-center gap-2">
+                  <Truck className="w-4 h-4" />
+                  Delivery Fee:
+                </span>
+                <span className="text-lg font-semibold">${deliveryFee.toFixed(2)}</span>
+              </div>
+              <div className="flex justify-between items-center pt-2 border-t">
                 <span className="text-lg font-semibold">Total:</span>
                 <span className="text-xl font-bold text-orange-600">
                   ${total.toFixed(2)}
                 </span>
               </div>
-              <button className="w-full bg-orange-500 text-white py-2 rounded-md hover:bg-orange-600">
+              <button 
+                className="w-full bg-orange-500 text-white py-2 rounded-md hover:bg-orange-600"
+                onClick={() => navigate("/place-order", { state: { total, cartDetails } })}
+              >
                 Proceed to Checkout
               </button>
             </div>
