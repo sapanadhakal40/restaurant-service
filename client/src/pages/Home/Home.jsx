@@ -3,6 +3,9 @@ import ExploreMenu from "../../components/ExploreMenu/ExploreMenu"
 import FoodDisplay from "../../components/FoodDisplay/FoodDisplay";
 import Header from "../../components/Header/Header"
 import { useState } from "react"
+import { useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
+
 
 import { FaUtensils, FaSmile, FaHandshake, FaLeaf } from 'react-icons/fa'; 
 
@@ -10,6 +13,17 @@ import { FaUtensils, FaSmile, FaHandshake, FaLeaf } from 'react-icons/fa';
 
 
 const Home = ( {handleAddToCart}) => {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.state?.scrollTo) {
+        const element = document.getElementById(location.state.scrollTo);
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
+}, [location]);
+
 
   const [category, setCategory] = useState("all");
   return (
@@ -37,6 +51,8 @@ const Home = ( {handleAddToCart}) => {
             <h3 className="text-lg font-semibold">Crafted with Care</h3>
             <p className="text-gray-600 text-md">Our dedicated chefs pour their passion into every dish, using only the finest, locally sourced ingredients to create culinary delights.</p>
           </div>
+
+
           <div className="bg-gray-50 p-6 rounded-lg shadow-md hover:scale-105 transition-transform duration-300 ease-in-out">
             <FaSmile className="text-3xl text-primary mb-4" /> 
             <h3 className="text-lg font-semibold">Your Satisfaction is Our Priority</h3>
@@ -47,6 +63,8 @@ const Home = ( {handleAddToCart}) => {
             <h3 className="text-lg font-semibold">Supporting Local</h3>
             <p className="text-gray-600 text-md">We believe in supporting local businesses and farmers, fostering strong community ties and contributing to a thriving local economy.</p>
           </div>
+
+          
           <div className="bg-gray-50 p-6 rounded-lg shadow-md hover:scale-105 transition-transform duration-300 ease-in-out">
             <FaLeaf className="text-3xl text-primary mb-4" /> 
             <h3 className="text-lg font-semibold">Eco-Conscious Choices</h3>
