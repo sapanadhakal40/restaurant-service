@@ -10,6 +10,7 @@ import 'react-toastify/dist/ReactToastify.css'
 
 
 const App = () => {
+  const url = 'http://localhost:5000'
   return (
 
     <div className="flex">
@@ -20,10 +21,10 @@ const App = () => {
         <div className="p-4">
           <Routes>
             <Route path="/" element={<h1>Welcome to Admin Panel</h1>} />
-            <Route path="/add-items" element={<Add />} />
+            <Route path="/add-items" element={<Add url={url} />} />
             
-            <Route path="/list-items" element={<List />} />
-            <Route path="/orders" element={<Orders />} />
+            <Route path="/list-items" element={<List url={url}/>} />
+            <Route path="/orders" element={<Orders url={url}/>} />
           </Routes>
         </div>
       </div>
