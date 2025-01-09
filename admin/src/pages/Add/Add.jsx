@@ -1,4 +1,5 @@
-/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
+
 
 
 import { assets } from '../../assets/assets'
@@ -7,8 +8,8 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 
-const Add = () => {
- const url = 'http://localhost:5000';
+const Add = ({url}) => {
+
     const [image, setImage] = useState(false);
     const [data, setData] = useState({
         name: "",
@@ -54,8 +55,8 @@ const Add = () => {
 
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 p-4">
-    <form onSubmit={onSubmitHandler} className="flex flex-col space-y-6 w-full max-w-md bg-white p-6 shadow-md rounded">
+    <div className="flex flex-col items-center  min-h-screen bg-gray-50 p-2">
+    <form onSubmit={onSubmitHandler} className="flex flex-col space-y-6 w-full max-w-md bg-white p-4 shadow-md rounded">
         <div className="flex flex-col space-y-2">
             <p>Upload image</p>
             <label htmlFor="image" className="flex items-center space-x-2">
@@ -111,107 +112,4 @@ const Add = () => {
 
 export default Add
 
-
-
-// import { assets } from '../../assets/assets';
-// import { useState } from 'react';
-
-// const Add = () => {
-
-//     const [image, setImage] = useState(false);
-
-//   return (
-//     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 p-4">
-//       <form className="flex flex-col space-y-6 w-full max-w-md bg-white p-6 shadow-md rounded">
-//         {/* Upload Image */}
-//         <div className="flex flex-col space-y-2">
-//           <label htmlFor="image" className="text-sm font-semibold">
-//             Upload Image
-//           </label>
-//           <div className="flex items-center space-x-2 cursor-pointer">
-//             <img
-//               className="h-10 w-10 object-cover border border-gray-300 p-1 rounded"
-//               src={image?URL.createObjectURL(image):assets.upload_area}
-//               alt="Upload"
-//             />
-//             <span className="text-sm text-gray-600">Choose an image</span>
-//           </div>
-//           <input
-//             type="file"
-//             id="image"
-//             className="hidden"
-//             onChange={(e) => setImage(e.target.files[0])}
-//           />
-//         </div>
-
-//         <div className="flex flex-col space-y-2">
-//           <label htmlFor="productName" className="text-sm font-semibold">
-//             Product Name
-//           </label>
-//           <input
-//             type="text"
-//             id="productName"
-//             placeholder="Enter product name"
-//             className="border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-//           />
-//         </div>
-
-
-//         <div className="flex flex-col space-y-2">
-//           <label htmlFor="productDescription" className="text-sm font-semibold">
-//             Product Description
-//           </label>
-//           <textarea
-//             id="productDescription"
-//             placeholder="Enter product description"
-//             className="border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-//           />
-//         </div>
-
-//         {/* Product Category */}
-//         <div className="flex flex-col space-y-2">
-//           <label htmlFor="productCategory" className="text-sm font-semibold">
-//             Product Category
-//           </label>
-//           <select
-//             id="productCategory"
-//             className="border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-//           >
-//             <option value="Salad">Salad</option>
-//             <option value="Rolls">Rolls</option>
-//             <option value="Deserts">Deserts</option>
-//             <option value="Sandwich">Sandwich</option>
-//             <option value="Cake">Cake</option>
-//             <option value="Pure Veg">Pure Veg</option>
-//             <option value="Pasta">Pasta</option>
-//             <option value="Noodles">Noodles</option>
-//           </select>
-//         </div>
-
-      
-//         <div className="flex flex-col space-y-2">
-//           <label htmlFor="productPrice" className="text-sm font-semibold">
-//             Product Price
-//           </label>
-//           <input
-//             type="number"
-//             id="productPrice"
-//             placeholder="Enter product price"
-//             className="border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-//           />
-//         </div>
-
-     
-//         <button
-//           type="submit"
-//           className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition-colors"
-//         >
-//           Add Product
-//         </button>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default Add;
 
