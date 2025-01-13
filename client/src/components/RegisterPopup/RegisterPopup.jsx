@@ -1,5 +1,8 @@
+
 /* eslint-disable react/prop-types */
 import { useState } from 'react'
+import axios from 'axios'
+import { toast } from 'react-toastify'
 
 
 
@@ -9,14 +12,32 @@ const RegisterPopup = ({setShowRegister, setShowLogin }) => {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
-    const handleRegister = () => {
-        if (name && email && password === confirmPassword) {
-            alert("Registered successfully");
-            setShowRegister(false);
-        }else{
-            alert("Please enter all fields correctly");
-        }
-    };
+    const handleRegister = async () => {
+        if (name && email && password && password === confirmPassword) {
+            try {
+              const response = await axios.post('http://localhost:5000/api/user/register', {
+                name,
+                email,
+                password,
+              });
+
+              toast.success('Registered successfully!');
+              console.log('Response:', response.data);
+             
+              setShowRegister(false);
+              setShowLogin(true);
+
+
+            } catch (error) {
+
+                const errorMessage = error.response ? error.response.data.message : 'Error registering user';
+                toast.error(errorMessage); // Show error message as a toast
+              }
+            } else {
+              toast.error('Please fill out all fields correctly');
+            }
+          };
+      
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
         <div className="bg-white p-8 rounded-lg shadow-lg w-80 relative">
