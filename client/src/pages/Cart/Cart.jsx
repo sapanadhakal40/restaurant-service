@@ -5,7 +5,7 @@ import { StoreContext } from "../../context/StoreContext";
 const Cart = () => {
   const { cartItems, food_list, removeFromCart, deleteFromCart } = useContext(StoreContext);
 
-  // Get the food items added to the cart
+   // Get the food items added to the cart
   const cartDetails = Object.keys(cartItems).map((id) => {
     const item = food_list.find((food) => food._id === id);
     return { ...item, quantity: cartItems[id] };

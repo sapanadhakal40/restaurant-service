@@ -150,3 +150,5 @@ const Navbar = ({ setShowLogin, setIsCartOpen, isLoggedIn, handleLogout, user}) 
 };
 
 export default Navbar;
+
+

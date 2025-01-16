@@ -1,4 +1,3 @@
- 
 /* eslint-disable react/prop-types */
 import { assets } from "../../assets/assets";
 import { useContext } from "react";
@@ -27,7 +26,7 @@ const FoodItem = ({id,name,price,image,description,handleAddToCart, setIsCartOpe
           
             ${price.toFixed(2)}
           </p>
-          <button className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors"
+          <button className="bg-green-600 text-white px-2 py-2 rounded-md hover:bg-green-700 transition-colors"
             onClick={() => {
               
               addToCart(id)
